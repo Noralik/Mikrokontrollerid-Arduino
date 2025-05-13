@@ -1,0 +1,28 @@
+void setup() {
+  Serial.begin(9600); // Initialize serial communication
+  pinMode(3, OUTPUT); // Set pin 3 as output
+  pinMode(6, OUTPUT); // Set pin 6 as output
+  pinMode(11, OUTPUT); // Set pin 11 as output
+}
+
+void loop() {
+  int sensorVal = analogRead(A1); // Read analog input from pin A1
+  float voltage = (sensorVal / 1024.0) * 5.0; // Convert sensor value to voltage
+  float temperature = (voltage - 0.5) * 100; // Convert voltage to temperature
+  Serial.println(temperature); // Print temperature to Serial Monitor
+
+  if (temperature > 40) { // Check if temperature is greater than 40 degrees Celsius
+    tone(3, 50); // Play a tone on pin 3 with frequency 50
+    digitalWrite(6, HIGH); // Set pin 6 HIGH
+    delay(200); // Delay for 200 milliseconds
+    noTone(3); // Stop the tone on pin 3
+    digitalWrite(6, LOW); // Set pin 6 LOW
+    delay(200); // Delay for 200 milliseconds
+    tone(9, 20); // Play another tone on pin 9 with frequency 20
+    digitalWrite(11, HIGH); // Set pin 11 HIGH
+    delay(200); // Delay for 200 milliseconds
+    noTone(9); // Stop the tone on pin 9
+    digitalWrite(11, LOW); // Set pin 11 LOW
+    delay(200); // Delay for 200 milliseconds
+  }
+}
